@@ -1,4 +1,4 @@
-package com.pepperoniapptemplate;
+package com.flapjacks;
 
 import android.app.Application;
 
