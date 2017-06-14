@@ -29,13 +29,16 @@
   },
   "jest": {
     "preset": "react-native",
-    "setupFiles": ["<rootDir>/test/setup.js"],
+    "setupFiles": [
+      "<rootDir>/test/setup.js"
+    ],
     "transformIgnorePatterns": [
       "node_modules/(?!(jest-)?react-native|react-navigation)"
     ]
   },
   "dependencies": {
     "bluebird": "^3.3.5",
+    "code-push": "^2.0.1-beta",
     "event-emitter": "^0.3.4",
     "immutable": "^3.7.6",
     "lodash": "^4.11.0",
@@ -43,6 +46,7 @@
     "react": "~15.4.2",
     "react-dom": "~15.4.2",
     "react-native": "0.42.0",
+    "react-native-code-push": "^2.1.0-beta",
     "react-native-vector-icons": "^4.0.0",
     "react-navigation": "^1.0.0-beta.7",
     "react-redux": "^4.4.5",

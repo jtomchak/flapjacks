@@ -24,7 +24,7 @@ export const MainScreenNavigator = TabNavigator({
 });
 
 MainScreenNavigator.navigationOptions = {
-  title: 'Flapjacks !!',
+  title: 'Flapjacks',
   header: {
     titleStyle: {color: 'white'},
     style: {
