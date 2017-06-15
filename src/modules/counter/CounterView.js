@@ -4,13 +4,38 @@ import {
   TouchableOpacity,
   Image,
   Text,
-  View
+  View,
+  Animated
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Animation from 'lottie-react-native';
+
+import anim from '../../assets/Watermelon.json';
 
 class CounterView extends Component {
   static displayName = 'CounterView';
+  constructor(props) {
+    super(props);
+    this.state = {
+      progress: new Animated.Value(0),
+    };
+  }
+
+  componentDidMount() {
+    if (this.props.counter == 10){
+     Animated.timing(this.state.progress, {
+      toValue: 1,
+      duration: 5000,
+    }).start();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.counter == 10){
+      this.runAnimation();
+    }
+  }
 
   static navigationOptions = {
     title: 'Counter',
@@ -40,7 +65,17 @@ class CounterView extends Component {
 
   reset = () => {
     this.props.counterStateActions.reset();
-  };
+    this.setState((prevState, props) => {
+  return {progress: new Animated.Value(0)};
+  });
+};
+
+runAnimation = () => {
+       Animated.timing(this.state.progress, {
+          toValue: 1,
+          duration: 5000,
+        }).start();
+    };
 
   random = () => {
     this.props.counterStateActions.random();
@@ -53,7 +88,8 @@ class CounterView extends Component {
   renderUserInfo = () => {
     if (!this.props.userName) {
       return null;
-    }
+    };
+
 
     return (
       <View style={styles.userContainer}>
@@ -81,6 +117,7 @@ class CounterView extends Component {
       <View style={styles.container}>
 
         {this.renderUserInfo()}
+        
 
         <TouchableOpacity
           accessible={true}
@@ -103,18 +140,19 @@ class CounterView extends Component {
 
         <TouchableOpacity
             accessible={true}
-            accessibilityLabel={'Randomize counter'}
-            onPress={this.random}>
+            accessibilityLabel={'Run Animation'}
+            onPress={this.runAnimation}>
           <Text style={styles.linkButton}>
-            Random
+            Suprise !
           </Text>
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={this.bored} accessible={true}>
-          <Text style={styles.linkButton}>
-            {'I\'m bored!'}
-          </Text>
-        </TouchableOpacity>
+        <View style={styles.animationContainer}>
+        <Animation
+          style={styles.animationContainer}
+          source={anim}
+          progress={this.state.progress}
+        />
+        </View>
 
       </View>
     );
@@ -133,7 +171,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white'
+    backgroundColor: 'grey'
   },
   userContainer: {
     justifyContent: 'center',
@@ -148,7 +186,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#349d4a',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 20
+    margin: 20,
+    // padding: 5
   },
   counter: {
     color: 'white',
@@ -166,6 +205,11 @@ const styles = StyleSheet.create({
     color: '#CCCCCC',
     marginBottom: 10,
     padding: 5
+  },
+  animationContainer: {
+    height: 300,
+    width: 300,
+    // marginBottom: 10
   }
 });
 
