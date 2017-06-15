@@ -23,16 +23,10 @@ class CounterView extends Component {
   }
 
   componentDidMount() {
-    if (this.props.counter == 10){
-     Animated.timing(this.state.progress, {
-      toValue: 1,
-      duration: 5000,
-    }).start();
-    }
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.counter == 10){
+    if(nextProps.counter != 10){
       this.runAnimation();
     }
   }
